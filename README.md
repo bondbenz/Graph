@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# Graph
-A python script that includes a multiple graph algorithms. 
-=======
 # Graph Algorithms
 
 a python script that include multiple graph algorithms.
@@ -26,4 +22,3 @@ pip install -r requirements.txt
 Support oriented and no-oriented path.
 Language : Python
 Version : 2.7
->>>>>>> Init

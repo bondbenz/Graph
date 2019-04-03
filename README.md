@@ -19,6 +19,14 @@ pip install -r requirements.txt
     [10] Bellman-Ford Simplified 
     [11] Floyd Algorithm
 
-Support oriented and no-oriented path.
-Language : Python
-Version : 2.7
+### Inserting data
+
+in graphe.txt file , use the following format :  <br />
+Source Destination Weight <br />
+Example
+2 5 6 <br />
+Source => 2 , Destination => 5 , Weight => 6 <br />
+
+Support oriented and no-oriented path. <br />
+Language : Python <br />
+Version : 2.7a <br />

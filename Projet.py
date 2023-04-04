@@ -54,7 +54,7 @@ class Arc:
             self.source = src
             self.destination = des
         else:
-            print 'Error Sommet'
+            print('Error Sommet')
 
     def __str__(self):
         return str(self.nom)
@@ -142,7 +142,7 @@ class Graphe:
                 self.sommets[self.sommetsNoms.index(arcSource)].ajouterArc(arc)
                 self.sommets[self.sommetsNoms.index(arcDestination)].ajouterArc(arc)
             else:
-                print 'Source ou destination nest pas valid'
+                print('Source ou destination nest pas valid')
             i+=1
     def matriceGUI(self,matrice,title):
         w = 5
@@ -182,7 +182,7 @@ class Graphe:
                             self.matriceAdjacence[sommet.num][arc.destination.num] = 0
 
         np.fill_diagonal(self.matriceAdjacence, 0)
-        print self.matriceAdjacence
+        print(self.matriceAdjacence)
         self.matriceGUI(self.matriceAdjacence,'Matrice Adjacence')
 
     def matriceIncidenceGen(self):
@@ -194,14 +194,14 @@ class Graphe:
             else:
                 self.matriceIncidence[arc.source.num][arc.num] = 1
                 self.matriceIncidence[arc.destination.num][arc.num] = -1
-        print self.matriceIncidence
+        print(self.matriceIncidence)
         self.matriceGUI(self.matriceIncidence,'Matrice Incidence')
 
     def listeGen(self):
         for sommet in self.sommets:
             for adj in sommet.adjs:
                 self.listeAdjacence[sommet.nom].append(adj.nom)
-        print self.listeAdjacence
+        print(self.listeAdjacence)
     #TP2
     def matricePonderationGen(self):
         shape = int(len(self.sommets))
@@ -224,7 +224,7 @@ class Graphe:
                             self.matricePonderation[sommet.num][arc.destination.num] = 999
 
         np.fill_diagonal(self.matricePonderation, 0)
-        print self.matricePonderation
+        print(self.matricePonderation)
         self.matriceGUI(self.matricePonderation,'Matrice Ponderation')
 
     def kruskalAlgo(self):
@@ -256,7 +256,7 @@ class Graphe:
                 i+=1
 
         for arc in self.kruskal:
-            print '('+str(arc.poid)+',('+arc.source.nom+','+arc.destination.nom+'))'
+            print('('+str(arc.poid)+',('+arc.source.nom+','+arc.destination.nom+'))')
         G = nx.Graph()
         for arc in self.kruskal:
             G.add_edges_from([(arc.source,arc.destination)],weight=arc.poid)
@@ -336,15 +336,15 @@ class Graphe:
                     v = self.co[0].source
                 self.co.remove(save)
                 self.co.sort(key=lambda arc :arc.poid)
-        print self.f
+        print(self.f)
         #print sanscycle
         #for arc in self.f:
         #    if arc not in sanscycle:
         #        self.f.remove(arc)
 
-        print 'F:'
+        print('F:')
         for arc in self.f:
-            print '('+str(arc.poid)+',('+arc.source.nom+','+arc.destination.nom+'))'
+            print('('+str(arc.poid)+',('+arc.source.nom+','+arc.destination.nom+'))')
         G = nx.Graph()
         for arc in self.f:
             G.add_edges_from([(arc.source,arc.destination)],weight=arc.poid)
@@ -363,7 +363,7 @@ class Graphe:
         i = 0
         adjcouleurs = []
         self.sommets.sort(key=lambda degre: len(degre.adjs), reverse=True)
-        print self.sommets
+        print(self.sommets)
         for sommet in self.sommets:
             if sommet.couleur == '':
                 while(sommet.couleur == ''):
@@ -383,8 +383,8 @@ class Graphe:
                                 break
                 adjcouleurs = []
         for sommet in self.sommets:
-            print("Sommet "+str(sommet)+" Couleur -> "+str(sommet.couleur))
-            print sommet.adjs
+            print(("Sommet "+str(sommet)+" Couleur -> "+str(sommet.couleur)))
+            print(sommet.adjs)
 
         G = nx.Graph()
         for arc in self.arcs:
@@ -408,7 +408,7 @@ class Graphe:
         #verification des arcs negative
         for arc in self.arcs:
             if (arc.poid<0):
-                print 'Arc avec un poid negatif a ete detecte'
+                print('Arc avec un poid negatif a ete detecte')
                 exit()
         #ajoute a dicionnaite
         for sommet in self.sommets:
@@ -429,7 +429,7 @@ class Graphe:
                 self.p[v] = sommetDepart
         #boucle pour le reste
             while (len(self.visit)!=len(self.sommets)):
-                sorted_d = sorted(self.d.items(), key=operator.itemgetter(1))
+                sorted_d = sorted(list(self.d.items()), key=operator.itemgetter(1))
                 minV = sorted_d[1][0]
                 if minV not in self.visit:
                     self.visit.append(minV)
@@ -453,7 +453,7 @@ class Graphe:
                 self.p[arc.destination] = sommetDepart
         #boucle pour le reste
             while (len(self.visit)!=len(self.sommets)):
-                sorted_d = sorted(self.d.items(), key=operator.itemgetter(1))
+                sorted_d = sorted(list(self.d.items()), key=operator.itemgetter(1))
                 minV = sorted_d[1][0]
                 if minV not in self.visit:
                     self.visit.append(minV)
@@ -467,10 +467,10 @@ class Graphe:
                             self.p[arc.destination] = minV
                 self.djikstra[minV] = self.d[minV]
                 del self.d[minV]
-        print 'Distances Djikstra:'
-        print str(self.djikstra)
-        print 'Chemin Sommet/Precedeur'
-        print str(self.p)
+        print('Distances Djikstra:')
+        print(str(self.djikstra))
+        print('Chemin Sommet/Precedeur')
+        print(str(self.p))
         if self.grapheType==1:
             G = nx.Graph()
         else:
@@ -482,7 +482,7 @@ class Graphe:
         edge_labels=dict([((u,v,),d['weight'])
                  for u,v,d in G.edges(data=True)])
         red_edges = []
-        for key in self.p.keys():
+        for key in list(self.p.keys()):
             red_edges.append((self.p[key],key))
             if self.grapheType==1:
                 red_edges.append((key,self.p[key]))
@@ -510,7 +510,7 @@ class Graphe:
             i = 0
             while (max(self.bellmanford.values())==999):
                 if (i>len(self.sommets)-1):
-                    print 'Circuit absorbant a ete detecte'
+                    print('Circuit absorbant a ete detecte')
                     exit()
                 for sommet in self.sommets:
                     for arc in sommet.arcs:
@@ -527,7 +527,7 @@ class Graphe:
             i = 0
             while (max(self.bellmanford.values())==999):
                 if (i>len(self.sommets)-1):
-                    print 'Circuit absorbant a ete detecte'
+                    print('Circuit absorbant a ete detecte')
                     exit()
                 for sommet in self.sommets:
                     for arc in sommet.arcs:
@@ -537,10 +537,10 @@ class Graphe:
                             self.pbellman[arc.destination] = arc.source
                 i=+1
 
-        print 'Distance Bellman-Ford'
-        print str(self.bellmanford)
-        print 'Chemin Sommet/Precedeur'
-        print str(self.pbellman)
+        print('Distance Bellman-Ford')
+        print(str(self.bellmanford))
+        print('Chemin Sommet/Precedeur')
+        print(str(self.pbellman))
         if self.grapheType==1:
             G = nx.Graph()
         else:
@@ -552,7 +552,7 @@ class Graphe:
         edge_labels=dict([((u,v,),d['weight'])
                  for u,v,d in G.edges(data=True)])
         red_edges = []
-        for key in self.pbellman.keys():
+        for key in list(self.pbellman.keys()):
             red_edges.append((self.pbellman[key],key))
             if self.grapheType==1:
                 red_edges.append((key,self.pbellman[key]))
@@ -574,7 +574,7 @@ class Graphe:
             for arc in sommet.arcs:
                 for arcd in arc.destination.arcs:
                     if arcd.destination == arc.source:
-                        print 'Circuit detecte'
+                        print('Circuit detecte')
                         exit()
         #Bellman-Ford Simplifie general
         #init
@@ -591,10 +591,10 @@ class Graphe:
         while(len(self.t)!=len(self.sommets)):
             tempNiveaux = []
             sommetPrAjout = []
-            for niveau in self.niveaux.keys():
+            for niveau in list(self.niveaux.keys()):
                 for sommet in self.niveaux[niveau]:
                     tempNiveaux.append(sommet)
-            for sommet in self.p.keys():
+            for sommet in list(self.p.keys()):
                 tempNiveaux2 = []
                 for precedeur in self.p[sommet]:
                     tempNiveaux2.append(precedeur)
@@ -623,14 +623,14 @@ class Graphe:
                 self.dbellsimple[sommet] = min(distanceValeurs)
                 self.bp[sommet] = self.sos[min(distanceValeurs)]
             i+=1
-        print 'Les Precedeurs'
-        print str(self.p)
-        print 'Les Niveaux'
-        print str(self.niveaux)
-        print 'Distance Bellman-Ford Simplifie'
-        print str(self.dbellsimple)
-        print 'Chemin Sommet/Precedeur'
-        print str(self.bp)
+        print('Les Precedeurs')
+        print(str(self.p))
+        print('Les Niveaux')
+        print(str(self.niveaux))
+        print('Distance Bellman-Ford Simplifie')
+        print(str(self.dbellsimple))
+        print('Chemin Sommet/Precedeur')
+        print(str(self.bp))
 
         G = nx.DiGraph()
         for arc in self.arcs:
@@ -639,7 +639,7 @@ class Graphe:
         edge_labels=dict([((u,v,),d['weight'])
                  for u,v,d in G.edges(data=True)])
         red_edges = []
-        for key in self.bp.keys():
+        for key in list(self.bp.keys()):
             red_edges.append((self.bp[key],key))
 
         for arc in red_edges:
@@ -677,7 +677,7 @@ class Graphe:
             #verification de circuit absorbant
             for i in range(0,shape):
                 if self.dfloyd[i][i]<0:
-                    print 'Circuit absorbant a ete detecte'
+                    print('Circuit absorbant a ete detecte')
                     exit()
             #fixer la ligne et la colone de letape k
             for i in range(0,shape):
@@ -693,25 +693,25 @@ class Graphe:
                         if (d_1[i][j]!=self.dfloyd[i][j]):
                             self.pfloyd[i][j] = p_1[k][j]
 
-        print 'Matrice D'
-        print self.dfloyd
-        print 'Matrice P'
-        print self.pfloyd
+        print('Matrice D')
+        print(self.dfloyd)
+        print('Matrice P')
+        print(self.pfloyd)
         self.matriceGUI(self.dfloyd,'Matrice Distance Floyd')
         self.matriceGUI(self.pfloyd,'Matrice Des Precedeurs Floyd')
 
 def graphType():
-    print '''
+    print('''
         [1] Graphe Non-Oriente
         [2] Graphe Oriente
-    '''
-    grapheT = int(raw_input("Le Type du Graphe [1/2] : "))
+    ''')
+    grapheT = int(input("Le Type du Graphe [1/2] : "))
     return grapheT
 
 gl = 1
 def menu():
     global gl
-    print '''
+    print('''
     </> Graph Algos
     [1]  Matrice Adjacence
     [2]  Matrice Incidence
@@ -725,10 +725,10 @@ def menu():
     [10] Bellman-Ford Simplifie
     [11] Floyd Algorithm
     [99] Exit
-    '''
-    choix = int(raw_input("[+] Votre Choix : "))
+    ''')
+    choix = int(input("[+] Votre Choix : "))
     if choix==1:
-        print '''
+        print('''
          ______________
         ||            ||
         ||  Matrice   ||
@@ -741,16 +741,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.matriceAdjacenceGen()
         menu()
     elif choix==2:
-        print '''
+        print('''
          ______________
         ||            ||
         ||  Matrice   ||
@@ -763,16 +763,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.matriceIncidenceGen()
         menu()
     elif choix==3:
-        print '''
+        print('''
          ______________
         ||            ||
         ||  Liste     ||
@@ -785,16 +785,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.listeGen()
         menu()
     elif choix==4:
-        print '''
+        print('''
          ______________
         ||            ||
         ||  Matrice   ||
@@ -807,16 +807,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.matricePonderationGen()
         menu()
     elif choix==5:
-        print '''
+        print('''
          ______________
         ||            ||
         ||            ||
@@ -829,16 +829,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = 1
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.kruskalAlgo()
         menu()
     elif choix==6:
-        print '''
+        print('''
          ______________
         ||            ||
         ||            ||
@@ -851,16 +851,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = 1
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.primAlgo()
         menu()
     elif choix==7:
-        print '''
+        print('''
          ______________
         ||            ||
         ||   Welsh    ||
@@ -873,16 +873,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = 1
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.welshNpowell()
         menu()
     elif choix==8:
-        print '''
+        print('''
          ______________
         ||            ||
         ||            ||
@@ -895,16 +895,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.djikstraAlgo()
         menu()
     elif choix==9:
-        print '''
+        print('''
          ______________
         ||            ||
         ||   Bellman  ||
@@ -917,16 +917,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.bellmanfordAlgo()
         menu()
     elif choix==10:
-        print '''
+        print('''
          ______________
         ||            ||
         ||   Bellman  ||
@@ -939,16 +939,16 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = 2
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.bellmanfordSimpleAlgo()
         menu()
     elif choix==11:
-        print '''
+        print('''
          ______________
         ||            ||
         ||            ||
@@ -961,21 +961,21 @@ def menu():
            \      ____  \
             \_____\___\___\
 
-        '''
+        ''')
         typeg = graphType()
         gl = typeg
         graphe = Graphe(typeg)
         graphe.grapheRemplire()
-        print 'Liste de sommets : '+str(graphe.sommets)
+        print('Liste de sommets : '+str(graphe.sommets))
         graphe.floydAlgo()
         menu()
     elif choix==99:
-        print '[!] Bye Bye!'
+        print('[!] Bye Bye!')
         exit()
     else:
-        print '[!] Est-que vous etes sure que c\'est le bon choix?'
+        print('[!] Est-que vous etes sure que c\'est le bon choix?')
         menu()
-print '''
+print('''
 
              _____
           .-'.  ':'-.
@@ -989,5 +989,5 @@ print '''
           '-.___'_.-'
 
    </> Graph Tool | Author : Bond Benz
-'''
+''')
 menu()
